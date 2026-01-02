@@ -1,0 +1,67 @@
+// Enum declaration
+enum State: logic<2> {
+    IDLE = 0,
+    RUNNING = 1,
+    DONE = 2,
+}
+
+// Struct declaration
+struct DataPacket {
+    valid: logic,
+    data: logic<32>,
+    addr: logic<16>,
+}
+
+// Module with complex features
+module StateMachine #(
+    param DATA_WIDTH: u32 = 32,
+    const TIMEOUT: u32 = 100,
+) (
+    clk: input clock,
+    rst: input reset,
+    start: input logic,
+    data_in: input logic<DATA_WIDTH>,
+    state_out: output State,
+    packet_out: output DataPacket,
+) {
+    var state: State;
+    var counter: u32;
+    var packet: DataPacket;
+
+    always_ff (clk) {
+        if_reset {
+            state = State::IDLE;
+            counter = 0;
+        } else {
+            case state {
+                State::IDLE: {
+                    if start {
+                        state = State::RUNNING;
+                        counter = 0;
+                    }
+                }
+                State::RUNNING: {
+                    counter += 1;
+                    if counter >= TIMEOUT {
+                        state = State::DONE;
+                    }
+                }
+                State::DONE: {
+                    state = State::IDLE;
+                }
+                default: {
+                    state = State::IDLE;
+                }
+            }
+        }
+    }
+
+    always_comb {
+        packet.valid = state == State::RUNNING;
+        packet.data = data_in;
+        packet.addr = counter[15:0];
+    }
+
+    assign state_out = state;
+    assign packet_out = packet;
+}
