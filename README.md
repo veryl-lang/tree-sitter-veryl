@@ -112,11 +112,3 @@ tree-sitter highlight your-file.veryl
 
 - [Veryl](https://github.com/veryl-lang/veryl) - The Veryl language compiler and tools
 - [Veryl Documentation](https://doc.veryl-lang.org/book/) - Official Veryl documentation
-
-## License
-
-MIT
-
-## Author
-
-hota1024 <dev@hota1024.com>
