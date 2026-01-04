@@ -299,7 +299,7 @@ export default grammar({
 
     always_comb_block: ($) => seq("always_comb", $.block),
 
-    always_ff_block: ($) => seq("always_ff", "(", $.identifier, ")", $.block),
+    always_ff_block: ($) => seq("always_ff", optional(seq("(", $.identifier, ")")), $.block),
 
     initial_block: ($) => seq("initial", $.block),
 
