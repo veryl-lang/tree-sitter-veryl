@@ -1249,6 +1249,14 @@
               },
               {
                 "type": "STRING",
+                "value": "bbool"
+              },
+              {
+                "type": "STRING",
+                "value": "lbool"
+              },
+              {
+                "type": "STRING",
                 "value": "u32"
               },
               {
