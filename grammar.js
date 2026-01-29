@@ -274,6 +274,8 @@ export default grammar({
           choice(
             "logic",
             "bit",
+            "bbool",
+            "lbool",
             "u32",
             "u64",
             "i32",
